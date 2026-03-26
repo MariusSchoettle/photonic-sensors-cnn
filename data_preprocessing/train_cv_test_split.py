@@ -20,7 +20,7 @@ DATA_FOLDER = Path(os.getenv("RAW_DATA_PATH"))
 # set properties of train-cv-test split
 TRAIN_FRACTION, CV_FRACTION, TEST_FRACTION = 0.6, 0.2, 0.2  # should add to 1
 MIN_TIME = 60 * 2  # time in seconds before which data will be discarded
-MAX_TIME = 60 * 60 * 2  # time in seconds after which data will be discarded
+MAX_TIME = 60 * 5  # time in seconds after which data will be discarded
 
 # initialize dataframes
 df_train = pd.DataFrame({"filepath": [], "temperature": [], "time": []})
@@ -56,8 +56,8 @@ def read_single_measurement(experiment_path: Path, temperature: int) -> pd.DataF
 if __name__ == "__main__":
 
     save_folder = (
-        Path("./data_preprocessing/split_assignment")
-        / f"{int(TRAIN_FRACTION * 100)}-{int(CV_FRACTION * 100)}-{int(TEST_FRACTION * 100)}-split_{int(MAX_TIME)}-seconds"
+            Path("./split_assignment")
+            / f"{int(TRAIN_FRACTION * 100)}-{int(CV_FRACTION * 100)}-{int(TEST_FRACTION * 100)}-split_{int(MAX_TIME)}-seconds"
     )
 
     if save_folder.is_dir():
