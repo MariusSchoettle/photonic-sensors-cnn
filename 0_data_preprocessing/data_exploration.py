@@ -5,7 +5,7 @@ import pandas as pd
 import random
 
 assignment_path = Path(
-    "./data_preprocessing/split_assignment/60-20-20-split_7200-seconds/"
+    "./split_assignment/60-20-20-split_7200-seconds/"
 )
 train_path = assignment_path / "train.csv"
 df_train = pd.read_csv(train_path)

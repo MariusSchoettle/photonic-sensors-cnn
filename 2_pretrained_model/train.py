@@ -27,10 +27,10 @@ OPTIMIZER = torch.optim.Adam
 WEIGHT_DECAY = 7e-4
 LOSS_FN = torch.nn.MSELoss
 RANDOM_SEED = 42
-NUM_WORKERS = 0  # os.cpu_count()
+NUM_WORKERS = os.cpu_count()
 
 # Data directory
-DATA_FOLDER = Path(os.path.abspath(__file__)).parents[1] / "data_preprocessing/split_assignment"
+DATA_FOLDER = Path(os.path.abspath(__file__)).parents[1] / "0_data_preprocessing/split_assignment"
 ASSIGNMENT_FOLDER = DATA_FOLDER / "60-20-20-split_300-seconds"
 
 
