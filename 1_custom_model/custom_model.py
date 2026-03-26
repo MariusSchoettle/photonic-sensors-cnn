@@ -17,11 +17,11 @@ class CustomConvModel(nn.Module):
             conv_blocks.append(
                 nn.Sequential(
                     nn.Conv2d(
-                        in_channels, hidden_units, kernel_size=2, padding=1, stride=1
+                        in_channels, hidden_units, kernel_size=3, padding=1, stride=1
                     ),
                     nn.LeakyReLU(),
                     nn.Conv2d(
-                        hidden_units, hidden_units, kernel_size=2, padding=1, stride=1
+                        hidden_units, hidden_units, kernel_size=3, padding=1, stride=1
                     ),
                     nn.LeakyReLU(),
                     nn.MaxPool2d(2),
@@ -29,7 +29,7 @@ class CustomConvModel(nn.Module):
             )
             in_channels = hidden_units
 
-        self.conv = nn.Sequential(*conv_blocks)
+        self.conv = nn.Sequential(*conv_blocks, nn.AdaptiveAvgPool2d((1, 1)))
 
         # Determine length of flattened output
         with torch.no_grad():

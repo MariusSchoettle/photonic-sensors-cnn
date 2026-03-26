@@ -30,7 +30,7 @@ obtained with a custom network, to those of a fine-tuned, pretrained model.
 
 Predictions on a random subset of the test data:
 
-<img src="Example.png" width="500">
+<img src="example.png" width="500">
 
 ### Prerequisites
 

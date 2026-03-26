@@ -54,10 +54,11 @@ def read_single_measurement(experiment_path: Path, temperature: int) -> pd.DataF
 
 # Loop over all temperature and sample folders
 if __name__ == "__main__":
-
+    cwd = Path(os.path.abspath(__file__)).parent
     save_folder = (
-            Path("./split_assignment")
-            / f"{int(TRAIN_FRACTION * 100)}-{int(CV_FRACTION * 100)}-{int(TEST_FRACTION * 100)}-split_{int(MAX_TIME)}-seconds"
+        cwd
+        / "split_assignment"
+        / f"{int(TRAIN_FRACTION * 100)}-{int(CV_FRACTION * 100)}-{int(TEST_FRACTION * 100)}-split_{int(MAX_TIME)}-seconds"
     )
 
     if save_folder.is_dir():

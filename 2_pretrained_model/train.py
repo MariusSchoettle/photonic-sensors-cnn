@@ -16,7 +16,7 @@ import engine
 import utils
 
 # Set hyperparameters
-EPOCHS = 2
+EPOCHS = 10
 BATCH_SIZE = 64
 LEARNING_RATE = 1e-3
 MODEL = "efficientnet_b0"
@@ -30,8 +30,10 @@ RANDOM_SEED = 42
 NUM_WORKERS = os.cpu_count()
 
 # Data directory
-DATA_FOLDER = Path(os.path.abspath(__file__)).parents[1] / "0_data_preprocessing/split_assignment"
-ASSIGNMENT_FOLDER = DATA_FOLDER / "60-20-20-split_300-seconds"
+DATA_FOLDER = (
+    Path(os.path.abspath(__file__)).parents[1] / "0_data_preprocessing/split_assignment"
+)
+ASSIGNMENT_FOLDER = DATA_FOLDER / "60-20-20-split_7200-seconds"
 
 
 # Deep Learning
@@ -95,7 +97,8 @@ def main():
         pretrained_model=MODEL,
         pretrained_weights=WEIGHTS,
         freeze_weights=FREEZE_WEIGHTS,
-        dropout_prob=DROPOUT_PROB)
+        dropout_prob=DROPOUT_PROB,
+    )
     model.to(device)
 
     optimizer = OPTIMIZER(
@@ -132,7 +135,7 @@ def main():
         device=device,
         stats=train_data.stats,
         image_mean=default_transform.mean,
-        image_std=default_transform.std
+        image_std=default_transform.std,
     )
     hyperparameters = {
         "epochs": EPOCHS,
@@ -158,7 +161,7 @@ def main():
         fig_pred=fig_pred,
         normalization_stats=train_data.stats,
         hyperparameters=hyperparameters,
-        save_dir=save_path
+        save_dir=save_path,
     )
 
 

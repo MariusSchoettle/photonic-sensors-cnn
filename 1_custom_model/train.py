@@ -16,11 +16,11 @@ import engine
 import utils
 
 # Set hyperparameters
-EPOCHS = 2
+EPOCHS = 10
 BATCH_SIZE = 64
 LEARNING_RATE = 1e-3
-NUM_CONV_BLOCKS = 10
-HIDDEN_UNITS = 10
+NUM_CONV_BLOCKS = 3
+HIDDEN_UNITS = 100
 DROPOUT_PROB = 0.5
 TRANSFORM = custom_transforms.CustomTransforms(downscaling_factor=8)
 MODEL = custom_model.CustomConvModel
@@ -31,8 +31,10 @@ RANDOM_SEED = 42
 NUM_WORKERS = os.cpu_count()
 
 # Data directory
-DATA_FOLDER = Path(os.path.abspath(__file__)).parents[1] / "0_data_preprocessing/split_assignment"
-ASSIGNMENT_FOLDER = DATA_FOLDER / "60-20-20-split_300-seconds"
+DATA_FOLDER = (
+    Path(os.path.abspath(__file__)).parents[1] / "0_data_preprocessing/split_assignment"
+)
+ASSIGNMENT_FOLDER = DATA_FOLDER / "60-20-20-split_7200-seconds"
 
 
 # Deep Learning
@@ -82,10 +84,12 @@ def main():
     )
 
     # Model, optimizer and loss function
-    model = MODEL(hidden_units=HIDDEN_UNITS,
-                  input_shape=list(train_data[0][0].shape),
-                  num_blocks=NUM_CONV_BLOCKS,
-                  dropout_prob=DROPOUT_PROB)
+    model = MODEL(
+        hidden_units=HIDDEN_UNITS,
+        input_shape=list(train_data[0][0].shape),
+        num_blocks=NUM_CONV_BLOCKS,
+        dropout_prob=DROPOUT_PROB,
+    )
     model.to(device)
 
     optimizer = OPTIMIZER(
@@ -144,10 +148,10 @@ def main():
         fig_pred=fig_pred,
         normalization_stats=train_data.stats,
         hyperparameters=hyperparameters,
-        save_dir=save_path
+        save_dir=save_path,
     )
 
 
 if __name__ == "__main__":
-    # torch.multiprocessing.set_start_method(method="spawn", force=True)
+    torch.multiprocessing.set_start_method(method="spawn", force=True)
     main()
